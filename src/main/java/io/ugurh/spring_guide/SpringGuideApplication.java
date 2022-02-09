@@ -1,8 +1,9 @@
 package io.ugurh.spring_guide;
 
-import io.ugurh.spring_guide.domain.CollaborativeFilter;
-import io.ugurh.spring_guide.domain.ContentBasedFilter;
-import io.ugurh.spring_guide.domain.RecommenderImplementation;
+import io.ugurh.spring_guide.domain.Movie;
+import io.ugurh.spring_guide.service.imp.CollaborativeFilter;
+import io.ugurh.spring_guide.service.imp.ContentBasedFilter;
+import io.ugurh.spring_guide.service.RecommenderImplementation;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -26,7 +27,7 @@ public class SpringGuideApplication {
         System.out.println(Arrays.toString(result));
 
         System.out.println("*******************************");
-        //Retrieve prototype bean from application context thrice
+        //Retrieve singleton  bean from application context thrice
         ContentBasedFilter cbf1 = appContext.getBean(ContentBasedFilter.class);
         ContentBasedFilter cbf2 = appContext.getBean(ContentBasedFilter.class);
         ContentBasedFilter cbf3 = appContext.getBean(ContentBasedFilter.class);
@@ -35,7 +36,7 @@ public class SpringGuideApplication {
         System.out.println("ContentBasedFilter 2 -> " + cbf2);
         System.out.println("ContentBasedFilter 3 -> " + cbf3);
 
-        //Retrieve singleton bean from application context thrice
+        //Retrieve prototype bean from application context thrice
         CollaborativeFilter cf1 = appContext.getBean(CollaborativeFilter.class);
         CollaborativeFilter cf2 = appContext.getBean(CollaborativeFilter.class);
         CollaborativeFilter cf3 = appContext.getBean(CollaborativeFilter.class);
@@ -43,6 +44,23 @@ public class SpringGuideApplication {
         System.out.println("CollaborativeFilter 1 -> " + cf1);
         System.out.println("CollaborativeFilter 2 -> " + cf2);
         System.out.println("CollaborativeFilter 3 -> " + cf3);
+
+        System.out.println("-----------------------------------");
+
+        //Retrieve prototype bean from the singleton bean thrice
+        Movie movie1 = cbf1.getMovie();
+        Movie movie2 = cbf1.getMovie();
+        Movie movie3 = cbf1.getMovie();
+
+        System.out.println("\nMovie bean with prototype scope");
+        System.out.println(movie1);
+        System.out.println(movie2);
+        System.out.println(movie3);
+
+        //Print number of instances of each bean
+        System.out.println("\nContentBasedFilter instances created: "+
+                ContentBasedFilter.getInstances());
+        System.out.println("Movie instances created: "+ Movie.getInstances());
     }
 
 }

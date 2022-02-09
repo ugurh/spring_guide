@@ -1,4 +1,4 @@
-package io.ugurh.spring_guide.domain;
+package io.ugurh.spring_guide.service;
 
 public interface Filter {
     String[] recommendMovies() ;

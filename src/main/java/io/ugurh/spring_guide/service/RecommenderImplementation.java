@@ -1,4 +1,4 @@
-package io.ugurh.spring_guide.domain;
+package io.ugurh.spring_guide.service;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

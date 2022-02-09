@@ -1,18 +1,15 @@
-package io.ugurh.spring_guide.domain;
+package io.ugurh.spring_guide.service.imp;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import io.ugurh.spring_guide.service.Filter;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
-//@Primary
-@Qualifier("contentBasedFilter")
-//@Scope("Prototype") Option 1
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE) //Option 2
-public class ContentBasedFilter implements Filter{
+public class CollaborativeFilter implements Filter {
     @Override
     public String[] recommendMovies() {
-        return new String[]{"Harry Potter"};
+        return new String[0];
     }
 }
