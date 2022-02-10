@@ -1,10 +1,17 @@
 package io.ugurh.spring_guide.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 @Component
 public class RecommenderImplementation {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     // Field injection
     //@Autowired
@@ -15,6 +22,18 @@ public class RecommenderImplementation {
     //Constructor injection
     public RecommenderImplementation(@Qualifier("contentBasedFilter") Filter filter) {
         this.filter = filter;
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        //initialization code goes here
+        logger.info("In RecommenderImplementation postConstruct method");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        //cleanup code
+        logger.info("In RecommenderImplementation preDestroy method");
     }
 
     /** Setter injection
@@ -32,11 +51,8 @@ public class RecommenderImplementation {
 
     //use a filter to find recommendations
     public String[] recommendMovies() {
-
-        System.out.println("\nName of the filter in use: " + filter + "\n");
-
+        logger.info("Get Recommend Movies");
         String[] results = filter.recommendMovies();
-
         return results;
     }
 
