@@ -11,6 +11,8 @@ import org.springframework.context.ApplicationContext;
 import java.util.Arrays;
 
 @SpringBootApplication
+//@ComponentScan(basePackages="io.ugurh.xx")
+//@ComponentScan(includeFilters = @ComponentScan.Filter (type= FilterType.REGEX, pattern="io.ugurh.yy.*"))
 public class SpringGuideApplication {
 
     public static void main(String[] args) {
