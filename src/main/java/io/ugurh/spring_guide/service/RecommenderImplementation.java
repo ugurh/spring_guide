@@ -1,5 +1,6 @@
 package io.ugurh.spring_guide.service;
 
+import io.ugurh.spring_guide.service.imp.XXXBasedFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Inject;
 
 @Component
 public class RecommenderImplementation {
@@ -19,6 +21,8 @@ public class RecommenderImplementation {
     //Solution 2: Bean with matching name is injected
     // final Filter contentBasedFilter;
 
+    @Inject
+    XXXBasedFilter xxxBasedFilter;
     //Constructor injection
     public RecommenderImplementation(@Qualifier("contentBasedFilter") Filter filter) {
         this.filter = filter;
