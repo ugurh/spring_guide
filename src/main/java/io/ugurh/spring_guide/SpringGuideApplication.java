@@ -63,6 +63,16 @@ public class SpringGuideApplication {
         System.out.println("\nContentBasedFilter instances created: "+
                 ContentBasedFilter.getInstances());
         System.out.println("Movie instances created: "+ Movie.getInstances());
+
+        System.out.println("=========================");
+        System.out.println(recommender);
+
+        //Retrieving prototype bean from application context twice
+        Movie m1 = appContext.getBean(Movie.class);
+        System.out.println(m1);
+
+        Movie m2 = appContext.getBean(Movie.class);
+        System.out.println(m2);
     }
 
 }
