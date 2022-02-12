@@ -113,7 +113,9 @@ public class SpringGuideApplication implements CommandLineRunner {
 
         logger.info("All Players Data: {}", dao.getAllPlayers());
 
-        tournamentDao.createTournamentTable();
+        //tournamentDao.createTournamentTable();
+
+        logger.info("AUSTRIA Players: {}", dao.getPlayerByNationality("AUSTRIA"));
     }
 }
 

@@ -5,8 +5,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -63,4 +66,21 @@ public class PlayerDao {
         return jdbcTemplate.update(sql, id);
     }
 
+    public List<Player> getPlayerByNationality(String nationality) {
+        String sql = "SELECT * FROM PLAYER WHERE NATIONALITY = ?";
+        return jdbcTemplate.query(sql, new PlayerMapper(), nationality);
+    }
+
+    private static final class PlayerMapper implements RowMapper<Player> {
+        @Override
+        public Player mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Player player = new Player();
+            player.setId(rs.getInt("id"));
+            player.setName(rs.getString("name"));
+            player.setNationality(rs.getString("nationality"));
+            player.setBirthDate(rs.getTime("birth_date"));
+            player.setTitle(rs.getInt("title"));
+            return player;
+        }
+    }
 }
