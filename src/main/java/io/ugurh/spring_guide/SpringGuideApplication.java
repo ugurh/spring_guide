@@ -4,6 +4,7 @@ import io.ugurh.spring_guide.dao.PlayerDao;
 import io.ugurh.spring_guide.dao.TournamentDao;
 import io.ugurh.spring_guide.domain.Movie;
 import io.ugurh.spring_guide.domain.Player;
+import io.ugurh.spring_guide.repository.PlayerRepository;
 import io.ugurh.spring_guide.service.imp.CollaborativeFilter;
 import io.ugurh.spring_guide.service.imp.ContentBasedFilter;
 import io.ugurh.spring_guide.service.RecommenderImplementation;
@@ -14,11 +15,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.PropertySource;
 
 import java.sql.Date;
 import java.util.Arrays;
 
 @SpringBootApplication
+@PropertySource("classpath:application.yml")
 //@ComponentScan(basePackages="io.ugurh.xx")
 //@ComponentScan(includeFilters = @ComponentScan.Filter (type= FilterType.REGEX, pattern="io.ugurh.yy.*"))
 public class SpringGuideApplication implements CommandLineRunner {
@@ -30,6 +33,9 @@ public class SpringGuideApplication implements CommandLineRunner {
 
     @Autowired
     TournamentDao tournamentDao;
+
+    @Autowired
+    PlayerRepository repo;
 
     public static void main(String[] args) {
         //ApplicationContext manages the beans and dependencies
@@ -89,6 +95,9 @@ public class SpringGuideApplication implements CommandLineRunner {
 
         Movie m2 = appContext.getBean(Movie.class);
         System.out.println(m2);
+
+        String favoriteMovie = recommender.getFavoriteMovie();
+        System.out.println(favoriteMovie);
     }
 
     @Override
@@ -116,6 +125,17 @@ public class SpringGuideApplication implements CommandLineRunner {
         //tournamentDao.createTournamentTable();
 
         logger.info("AUSTRIA Players: {}", dao.getPlayerByNationality("AUSTRIA"));
+
+        logger.info("Inserting Player: {}", repo.insertPlayer(new Player("Djokovic", "SERBIA", Date.valueOf("1987-05-22"), 81)));
+
+        logger.info("Inserting Player: {}", repo.insertPlayer(new Player("Monfils", "FRANCE", Date.valueOf("1986-09-01"), 10)));
+
+        logger.info("Player with id 2: {}", repo.getPlayerById(2));
+
+        logger.info("Updating Player with Id 3: {}", repo.updatePlayer(new Player(3, "Thiem", "AUSTRIA", Date.valueOf("1993-09-03"), 17)));
+
+        logger.info("All Players Data: {}", repo.getAllPlayers());
+
     }
 }
 

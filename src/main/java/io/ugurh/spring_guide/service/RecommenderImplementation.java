@@ -4,11 +4,14 @@ import io.ugurh.spring_guide.service.imp.XXXBasedFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.HashSet;
 
 @Component
 public class RecommenderImplementation {
@@ -58,6 +61,12 @@ public class RecommenderImplementation {
         logger.info("Get Recommend Movies");
         String[] results = filter.recommendMovies();
         return results;
+    }
+
+    @Value("${recommender.implementation.favoriteMovie:Default Movie}")
+    String favoriteMovie;
+    public String getFavoriteMovie() {
+        return favoriteMovie;
     }
 
 }

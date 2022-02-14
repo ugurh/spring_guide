@@ -1,9 +1,15 @@
 package io.ugurh.spring_guide.domain;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "PLAYER")
+@NamedQuery(name = "get_all_players", query = "select p from Player p")
 public class Player {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String nationality;
@@ -15,6 +21,13 @@ public class Player {
 
     public Player(int id, String name, String nationality, Date birthDate, int title) {
         this.id = id;
+        this.name = name;
+        this.nationality = nationality;
+        this.birthDate = birthDate;
+        this.title = title;
+    }
+
+    public Player(String name, String nationality, Date birthDate, int title) {
         this.name = name;
         this.nationality = nationality;
         this.birthDate = birthDate;
